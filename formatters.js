@@ -4,7 +4,7 @@ let chalk = require('chalk')
 
 const MAX_SIGNAL = -35
 const MIN_SIGNAL = -90
-const MAX_SNR = 63
+const MAX_SNR = 60
 const MIN_SNR = 10
 
 // level should be a negative number
@@ -43,6 +43,45 @@ function signalLevelDescription(level) {
     return 'Bad'
 }
 
+function snrDescription(snr) {
+    if (snr >= 40)
+      return 'Excelent'
+    else if (snr >= 25)
+      return 'Good'
+    else if (snr >= 15)
+      return 'Low'
+    else if (snr >= 10)
+      return 'Very Low'
+
+    return 'No Signal'
+}
+
+function snrColor(snr) {
+    if (snr >= 40)
+      return chalk.blue
+    else if (snr >= 25)
+      return chalk.green
+    else if (snr >= 15)
+      return chalk.yellow
+    else if (snr >= 10)
+      return chalk.red
+
+    return chalk.red
+}
+
+//function snrStatus(snr) {
+    //if (snr >= 40)
+      //return 'Perfect'
+    //else if (snr >= 25)
+      //return 'i'
+    //else if (snr >= 15)
+      //return chalk.yellow
+    //else if (snr >= 10)
+      //return chalk.red
+
+    //return chalk.red
+//}
+
 function signalLevelColor(level) {
     if (level >= -50)
       return chalk.blue
@@ -77,5 +116,7 @@ module.exports = {
   snrMarkers,
   signalLevelDescription,
   signalLevelColor,
-  signalLevelStatus
+  signalLevelStatus,
+  snrColor,
+  snrDescription
 }

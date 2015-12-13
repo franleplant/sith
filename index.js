@@ -54,7 +54,12 @@ function wssa() {
         marker = fmt.signalLevelMarkers(data.signal)
       }
 
-      let desc = fmt.signalLevelColor(data.signal)(fmt.signalLevelDescription(data.signal));
+      let desc
+      if (data.snr) {
+        desc = fmt.snrColor(data.snr)(fmt.snrDescription(data.snr));
+      } else {
+        desc = fmt.signalLevelColor(data.signal)(fmt.signalLevelDescription(data.signal));
+      }
 
       return `\
 
