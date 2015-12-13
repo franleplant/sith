@@ -22,7 +22,7 @@ function wssa() {
     //this only supports OS X
     // source: _ => Observable({
     //   signal: [Number|false],
-    //   noice: [Number|false],
+    //   noise: [Number|false],
     //   rate: [Number|false],
     //   snr: [Number|false]
     //  })
@@ -33,52 +33,47 @@ function wssa() {
   }
 
 
+
   let activity = false;
 
   rx.Observable.timer(0, 1000)
     .timeInterval()
     .flatMapObserver(_ => source())
     .map(data => {
-      //TODO: replace signal for snr and fall back to signal when no snr is present
-      //probably would want to make an abstraction like this
-      // signal|snr => qualifier
-      // levelColor(qualifier)
-      // leveldescription(qualifier)
-      // levelStatus(qualifier)
-      //
       activity = !activity
-      let marker, desc, status
-      if (data.snr) {
-        marker = fmt.snrMarkers(data.snr)
-        desc = fmt.snrColor(data.snr)(fmt.snrDescription(data.snr));
-        status = fmt.snrStatus(data.snr)
-      } else {
-        marker = fmt.signalLevelMarkers(data.signal)
-        desc = fmt.signalLevelColor(data.signal)(fmt.signalLevelDescription(data.signal));
-        status = fmt.signalLevelStatus(data.signal)
-      }
+
+      let signalPer = fmt.getPercentage(data.signal, -100, -50)
+      let signalMarkers = fmt.getColor(signalPer)(fmt.getMarkers(signalPer))
+      let snrPer = fmt.getPercentage(data.snr, 4, 25)
+      let snrMarkers = fmt.getColor(snrPer)(fmt.getMarkers(snrPer))
+      let qualityPer = fmt.getPercentage(data.quality)
+      let qualityMarkers = fmt.getColor(qualityPer)(fmt.getMarkers(qualityPer))
 
       return `\
 
-  ${chalk.magenta('WSSA: Wifi Signal Strength Analyzer')}
+  ${activity ? chalk.magenta('W') : chalk.inverse(chalk.magenta('W'))}${chalk.magenta('SSA: Wifi Signal Strength Analyzer')}
 
-  ${activity ? ' ' : chalk.bgWhite(' ')}Polling...
+                   Signal ${signalMarkers} ${data.signal} dBm
+                  Quality ${qualityMarkers} ${data.quality} %
+                      SNR ${snrMarkers} ${data.snr} dBm
 
-  ${chalk.green(marker)}     ${desc}
+  Detail
+  ------
+     Quality[%]: ${data.quality}
+    Signal[dBm]: ${data.signal}
+     Noise[dBm]: ${data.noise}
+       SNR[dBm]: ${data.snr}
+      Rate[Mbs]: ${chalk.inverse(data.rate)}
 
-  Status: ${status}
-
-  Signal[dBm]: ${data.signal || 'no data'}
-   Noice[dBm]: ${data.noice || 'no data'}
-     SNR[dBm]: ${data.snr || 'no data'}
-    Rate[Mbs]: ${data.rate || 'no data'}
 
 
   Info
   ----
-  -67 dBm Minimum signal strength for applications that require very reliable, timely packet delivery.  VoIP/VoWiFi, streaming video
-  -70 dBm Minimum signal strength for reliable packet delivery. Email, web
+  SNR: Signal To noise Ratio (difference)
   SNR = S - N [dBm]
+
+  Quality: Quality of the signal based on the power with which the signal is percived
+  Quality = 2 * (Signal + 100)
       `
     })
     .map(x => {

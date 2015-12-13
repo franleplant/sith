@@ -1,6 +1,7 @@
 'use strict';
 let rx = require('rx')
 var exec = require('child_process').exec
+let utils = require('./utils')
 
 let exec$ = rx.Observable.fromNodeCallback(exec);
 
@@ -32,22 +33,27 @@ module.exports = function sourceOSX() {
           rate = false
         }
 
-        let noice;
+        let noise;
         try {
-          noice = parseInt(stdout.match(/(?:agrCtlNoise): *(-[\d]*)/)[1],10)
+          noise = parseInt(stdout.match(/(?:agrCtlNoise): *(-[\d]*)/)[1],10)
         } catch(e) {
-          console.log(`could not parse noice data ${e}`)
-          noice = false
+          console.log(`could not parse noise data ${e}`)
+          noise = false
         }
 
         let snr;
-        if (signal && noice) {
-          snr = signal - noice
+        if (signal && noise) {
+          snr = signal - noise
         } else {
           snr = false
         }
 
-        return {signal, noice, rate, snr}
+        let quality = false;
+        if (signal) {
+          quality = utils.dbmToQuality(signal)
+        }
+
+        return {signal, noise, rate, snr, quality}
     })
 
 }

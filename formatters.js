@@ -2,88 +2,88 @@
 let chalk = require('chalk')
 
 
-const MAX_SIGNAL = -35
-const MIN_SIGNAL = -90
-const MAX_SNR = 40
-const MIN_SNR = 10
+//const MAX_SIGNAL = -35
+//const MIN_SIGNAL = -90
+//const MAX_SNR = 40
+//const MIN_SNR = 10
 
 // level should be a negative number
-function signalLevelMarkers(level) {
-  level = Math.min(MAX_SIGNAL, level)
-  level = Math.max(MIN_SIGNAL, level)
+//function signalLevelMarkers(level) {
+  //level = Math.min(MAX_SIGNAL, level)
+  //level = Math.max(MIN_SIGNAL, level)
 
-  let range = Math.abs(MAX_SIGNAL - MIN_SIGNAL)
-  let shiftedLevel = (-level + MAX_SIGNAL)
-  let pp = (range - shiftedLevel) / range
-  let p = Math.round(pp * 10)
-  var q = 10 - p;
-  return "|".repeat(p) + "-".repeat(q)
-}
+  //let range = Math.abs(MAX_SIGNAL - MIN_SIGNAL)
+  //let shiftedLevel = (-level + MAX_SIGNAL)
+  //let pp = (range - shiftedLevel) / range
+  //let p = Math.round(pp * 10)
+  //var q = 10 - p;
+  //return "|".repeat(p) + "-".repeat(q)
+//}
 
-function snrMarkers(snr) {
-  snr = Math.min(MAX_SNR, snr)
-  snr = Math.max(MIN_SNR, snr)
+//function snrMarkers(snr) {
+  //snr = Math.min(MAX_SNR, snr)
+  //snr = Math.max(MIN_SNR, snr)
 
-  let range = Math.abs(MAX_SNR - MIN_SNR)
-  let shiftedLevel = (snr - MIN_SNR)
-  let pp = shiftedLevel / range
-  let p = Math.round(pp * 10)
-  let q = 10 - p;
-  return "|".repeat(p) + "-".repeat(q)
-}
+  //let range = Math.abs(MAX_SNR - MIN_SNR)
+  //let shiftedLevel = (snr - MIN_SNR)
+  //let pp = shiftedLevel / range
+  //let p = Math.round(pp * 10)
+  //let q = 10 - p;
+  //return "|".repeat(p) + "-".repeat(q)
+//}
 
-function signalLevelDescription(level) {
-    if (level >= -50)
-      return 'Excelent'
-    else if (level >= -60)
-      return 'Good'
-    else if (level >= -70)
-      return 'Fair'
+//function signalLevelDescription(level) {
+    //if (level >= -50)
+      //return 'Excelent'
+    //else if (level >= -60)
+      //return 'Good'
+    //else if (level >= -70)
+      //return 'Fair'
 
-    return 'Bad'
-}
+    //return 'Bad'
+//}
 
 // snr Status, description and Markers (levels) are calculated according to the following resources
 // http://www.wireless-nets.com/resources/tutorials/define_SNR_values.html
 //http://www.enterprisenetworkingplanet.com/netsp/article.php/3747656/WiFi-Define-Minimum-SNR-Values-for-Signal-Coverage.htm
-function snrDescription(snr) {
-    if (snr >= 40)
-      return 'Excelent'
-    else if (snr >= 25)
-      return 'Good'
-    else if (snr >= 15)
-      return 'Low'
-    else if (snr >= 10)
-      return 'Very Low'
+//function snrDescription(snr) {
+    //if (snr >= 40)
+      //return 'Excelent'
+    //else if (snr >= 25)
+      //return 'Good'
+    //else if (snr >= 15)
+      //return 'Low'
+    //else if (snr >= 10)
+      //return 'Very Low'
 
-    return 'No Signal'
-}
+    //return 'No Signal'
+//}
 
-function snrColor(snr) {
-    if (snr >= 40)
-      return chalk.blue
-    else if (snr >= 25)
-      return chalk.green
-    else if (snr >= 15)
-      return chalk.yellow
-    else if (snr >= 10)
-      return chalk.red
+//function snrColor(snr) {
+    //if (snr >= 40)
+      //return chalk.blue
+    //else if (snr >= 25)
+      //return chalk.green
+    //else if (snr >= 15)
+      //return chalk.yellow
+    //else if (snr >= 10)
+      //return chalk.red
 
-    return chalk.red
-}
+    //return chalk.red
+//}
 
-function snrStatus(snr) {
-    if (snr >= 40)
-      return 'always associated, lightening fast.'
-    else if (snr >= 25)
-      return 'always associated, very fast'
-    else if (snr >= 15)
-      return 'always associated, usually fast'
-    else if (snr >= 10)
-      return 'mostly associated, mostly slow'
+//exports.snrStatus = function snrStatus(snr) {
+    //if (snr >= 40)
+      //return 'always associated, lightening fast.'
+    //else if (snr >= 25)
+      //return 'always associated, very fast'
+    //else if (snr >= 15)
+      //return 'always associated, usually fast'
+    //else if (snr >= 10)
+      //return 'mostly associated, mostly slow'
 
-    return 'not associated, no go'
-}
+    //return 'not associated, no go'
+//}
 
 function signalLevelColor(level) {
     if (level >= -50)
@@ -110,17 +110,56 @@ function signalLevelStatus(level) {
 }
 
 
-module.exports = {
-  MAX_SIGNAL,
-  MIN_SIGNAL,
-  signalLevelMarkers,
-  MAX_SNR,
-  MIN_SNR,
-  snrMarkers,
-  signalLevelDescription,
-  signalLevelColor,
-  signalLevelStatus,
-  snrColor,
-  snrDescription,
-  snrStatus
+
+
+exports.getPercentage = function getPercentage(value, min, max) {
+  if (min == null) {
+    min = 0
+  }
+  if (max == null) {
+    max = 100
+  }
+
+  value = Math.min(max, value)
+  value = Math.max(min, value)
+  let range = Math.abs(max - min)
+
+  let shiftedValue = (value - min)
+  return shiftedValue / range
 }
+
+exports.getMarkers = function getMarkers(percentage) {
+  let p = Math.round(percentage * 10)
+  var q = 10 - p;
+  return "|".repeat(p) + "-".repeat(q)
+}
+
+exports.getColor = function getColor(percentage) {
+  let value = percentage * 100
+  if (value >= 75)
+    return chalk.blue
+  else if (value >= 50)
+    return chalk.green
+  else if (value >= 25)
+    return chalk.yellow
+
+  return chalk.red
+}
+
+//module.exports = {
+  //MAX_SIGNAL,
+  //MIN_SIGNAL,
+  //signalLevelMarkers,
+  //MAX_SNR,
+  //MIN_SNR,
+  //snrMarkers,
+  //signalLevelDescription,
+  //signalLevelColor,
+  //signalLevelStatus,
+  //snrColor,
+  //snrDescription,
+  //snrStatus,
+  //getMarkers,
+  //getColor,
+  //getPercentage
+//}

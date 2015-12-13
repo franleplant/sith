@@ -1,52 +1,47 @@
 import test from 'ava';
 import {
-  signalLevelMarkers,
-  MAX_SIGNAL,
-  MIN_SIGNAL,
-  snrMarkers,
-  MAX_SNR,
-  MIN_SNR
-  } from './formatters'
+  getPercentage,
+  getMarkers
+} from './formatters'
 
-test('signalLevelMarkers', t => {
+test('getMarkers', t => {
     let res;
 
-    res = signalLevelMarkers(MAX_SIGNAL)
-    t.ok(res.length === 10);
-    t.ok(res.indexOf("|".repeat(10)) >= 0, 'case: max signal');
+    res = getPercentage(20)
+    t.ok(res === 0.2);
 
-    res = signalLevelMarkers(MAX_SIGNAL + 10)
-    t.ok(res.length === 10);
-    t.ok(res.indexOf("|".repeat(10)) >= 0, 'case: more than max signal');
+    res = getPercentage(20, 0, 100)
+    t.ok(res === 0.2);
 
-    res = signalLevelMarkers(MIN_SIGNAL)
-    t.ok(res.length === 10);
-    t.ok(res.indexOf("-".repeat(10)) >= 0, 'case: min signal');
+    res = getPercentage(200, 0, 100)
+    t.ok(res === 1);
 
-    res = signalLevelMarkers(MIN_SIGNAL -10)
-    t.ok(res.length === 10);
-    t.ok(res.indexOf("-".repeat(10)) >= 0, 'case: less than min signal');
+    res = getPercentage(-100, 0, 100)
+    t.ok(res === 0);
+
+    res = getPercentage(120, 100, 200)
+    t.ok(res === 0.2);
+
+    res = getPercentage(-20, -100, 0)
+    t.ok(res === 0.8);
 });
-
-
-
-test('snrMarkers', t => {
+test('getMarkers', t => {
     let res;
 
-    res = snrMarkers(MAX_SNR)
+    res = getMarkers(0.2)
     t.ok(res.length === 10);
-    t.ok(res.indexOf("|".repeat(10)) >= 0, 'case: max signal');
+    t.ok(res.indexOf("|".repeat(2)) >= 0);
 
-    res = snrMarkers(MAX_SNR + 10)
+    res = getMarkers(0.24324)
     t.ok(res.length === 10);
-    t.ok(res.indexOf("|".repeat(10)) >= 0, 'case: more than max signal');
+    t.ok(res.indexOf("|".repeat(2)) >= 0);
 
-    res = snrMarkers(MIN_SNR)
+    res = getMarkers(1)
     t.ok(res.length === 10);
-    t.ok(res.indexOf("-".repeat(10)) >= 0, 'case: min signal');
+    t.ok(res.indexOf("|".repeat(10)) >= 0);
 
-    res = snrMarkers(MIN_SNR -10)
+    res = getMarkers(0.8)
     t.ok(res.length === 10);
-    t.ok(res.indexOf("-".repeat(10)) >= 0, 'case: less than min signal');
+    t.ok(res.indexOf("|".repeat(8)) >= 0);
+
 });
-
