@@ -2,23 +2,35 @@
 let chalk = require('chalk')
 
 
-
-// level should be a negative number
-// TODO: unit test and fine tune
 const MAX_SIGNAL = -35
 const MIN_SIGNAL = -90
-let range = Math.abs(MAX_SIGNAL - MIN_SIGNAL)
-function signalLevelMarkers(level) {
-  if (level > MAX_SIGNAL) level = MAX_SIGNAL
-  if (level < MIN_SIGNAL) level = MIN_SIGNAL
+const MAX_SNR = 63
+const MIN_SNR = 10
 
-  let pp = (range - (-level - 30)) / range
+// level should be a negative number
+function signalLevelMarkers(level) {
+  level = Math.min(MAX_SIGNAL, level)
+  level = Math.max(MIN_SIGNAL, level)
+
+  let range = Math.abs(MAX_SIGNAL - MIN_SIGNAL)
+  let shiftedLevel = (-level + MAX_SIGNAL)
+  let pp = (range - shiftedLevel) / range
   let p = Math.round(pp * 10)
-  //let p = Math.round((100 + level + 30)/10);
   var q = 10 - p;
   return "|".repeat(p) + "-".repeat(q)
 }
 
+function snrMarkers(snr) {
+  snr = Math.min(MAX_SNR, snr)
+  snr = Math.max(MIN_SNR, snr)
+
+  let range = Math.abs(MAX_SNR - MIN_SNR)
+  let shiftedLevel = (snr - MIN_SNR)
+  let pp = shiftedLevel / range
+  let p = Math.round(pp * 10)
+  let q = 10 - p;
+  return "|".repeat(p) + "-".repeat(q)
+}
 
 function signalLevelDescription(level) {
     if (level >= -50)
@@ -60,6 +72,9 @@ module.exports = {
   MAX_SIGNAL,
   MIN_SIGNAL,
   signalLevelMarkers,
+  MAX_SNR,
+  MIN_SNR,
+  snrMarkers,
   signalLevelDescription,
   signalLevelColor,
   signalLevelStatus

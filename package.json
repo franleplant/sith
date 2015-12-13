@@ -1,15 +1,23 @@
 {
-  "name": "wifierjs",
-  "version": "1.0.0",
-  "description": "",
+  "name": "wssa",
+  "version": "0.0.1",
+  "description": "Wifi Signal Strength Analyzer",
   "main": "index.js",
+  "bin": "wssa.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ava"
   },
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Fran Guijarro",
+    "email": "franleplant@gmail.com",
+    "url": "github.com/franleplant"
+  },
+  "license": "MIT",
   "dependencies": {
     "chalk": "1.1.1",
     "rx": "4.0.7"
+  },
+  "devDependencies": {
+    "ava": "0.7.0"
   }
 }
