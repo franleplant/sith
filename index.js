@@ -47,18 +47,15 @@ function wssa() {
       // levelStatus(qualifier)
       //
       activity = !activity
-      let marker;
+      let marker, desc, status
       if (data.snr) {
         marker = fmt.snrMarkers(data.snr)
+        desc = fmt.snrColor(data.snr)(fmt.snrDescription(data.snr));
+        status = fmt.snrStatus(data.snr)
       } else {
         marker = fmt.signalLevelMarkers(data.signal)
-      }
-
-      let desc
-      if (data.snr) {
-        desc = fmt.snrColor(data.snr)(fmt.snrDescription(data.snr));
-      } else {
         desc = fmt.signalLevelColor(data.signal)(fmt.signalLevelDescription(data.signal));
+        status = fmt.signalLevelStatus(data.signal)
       }
 
       return `\
@@ -69,7 +66,7 @@ function wssa() {
 
   ${chalk.green(marker)}     ${desc}
 
-  Status: ${fmt.signalLevelStatus(data.signal)}
+  Status: ${status}
 
   Signal[dBm]: ${data.signal || 'no data'}
    Noice[dBm]: ${data.noice || 'no data'}
