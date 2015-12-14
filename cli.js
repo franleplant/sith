@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 'use strict'
 
-let sith = require('./index');
+let sithCli = require('./index');
 // TODO: enable command line flags and help strings
 
 
-sith()
+sithCli()

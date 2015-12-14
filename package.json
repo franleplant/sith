@@ -4,7 +4,7 @@
   "description": "Wifi Signal Strength Analyzer",
   "main": "index.js",
   "bin": {
-    "sith": "sith.js"
+    "sith": "cli.js"
   },
   "scripts": {
     "test": "ava"
@@ -17,8 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "chalk": "1.1.1",
-    "log-update": "1.0.2",
-    "rx": "4.0.7"
+    "log-update": "1.0.2"
   },
   "devDependencies": {
     "ava": "0.7.0"
