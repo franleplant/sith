@@ -2,7 +2,8 @@
 
 let chalk = require('chalk')
 let rx = require('rx')
-let sourceOSX$ = require('./OSX_source')
+let logUpdate = require('log-update')
+let source = require('./source')
 let fmt = require('./formatters')
 // https://support.metageek.com/hc/en-us/articles/201955754-Acceptable-Wi-Fi-Signal-Strengths
 //https://support.bluesound.com/hc/en-us/articles/201940663-What-should-my-Wireless-Signal-Strength-be-for-best-performance-
@@ -11,34 +12,20 @@ let fmt = require('./formatters')
 //http://www.enterprisenetworkingplanet.com/netsp/article.php/3747656/WiFi-Define-Minimum-SNR-Values-for-Signal-Coverage.htm
 //
 
+// Render in a cleared screen
+process.stdout.cursorTo(0, 0);
+process.stdout.clearScreenDown()
 
 /**
  * @param {Boolean} useSignal - use signal power instead of snr as a quality source
  * @param {Boolean} singleRun - run only once
  */
 function sith() {
-  let source;
-  if (process.platform.indexOf('darwin') >= 0) {
-    //this only supports OS X
-    // source: _ => Observable({
-    //   signal: [Number|false],
-    //   noise: [Number|false],
-    //   rate: [Number|false],
-    //   snr: [Number|false]
-    //  })
-    source = sourceOSX$;
-  } else {
-    console.log('platform not supported')
-    return
-  }
-
-
-
   let activity = false;
 
   rx.Observable.timer(0, 1000)
     .timeInterval()
-    .flatMapObserver(_ => source())
+    .map(_ => source())
     .map(data => {
       activity = !activity
 
@@ -88,9 +75,10 @@ function sith() {
       `
     })
     .map(x => {
-      process.stdout.cursorTo(0, 0);
-      process.stdout.clearScreenDown()
-      console.log(x)
+      //process.stdout.cursorTo(0, 0);
+      //process.stdout.clearScreenDown()
+      //console.log(x)
+      logUpdate(x)
     })
     .subscribe(
       x => {},
