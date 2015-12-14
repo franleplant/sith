@@ -51,4 +51,3 @@ function get_data_osx() {
 }
 
 module.exports = get_data_osx
-console.log(get_data_osx())

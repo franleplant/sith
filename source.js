@@ -1,18 +1,29 @@
 'use strict'
 
 let source_osx = require('./source_osx')
+let source_linux = require('./source_linux')
 
 
+let platform = process.platform
 
-//TODO: document the format expected from the sources
-    //this only supports OS X
-    //   signal: [Number|false],
-    //   noise: [Number|false],
-    //   rate: [Number|false],
-    //   snr: [Number|false]
-    //   quality: [Number|false]
-if (process.platform.indexOf('darwin') >= 0) {
+/**
+ * @typedef signalData
+ * @prop {Number} signal - negative [dBm]
+ * @prop {Number} noice - negative [dBm]
+ * @prop {Number} quality - [%]
+ * @prop {Number} rate - [Mbs] current transimition rate
+ * @prop {Number} snr - positive [dBm]
+ *
+ */
+
+/**
+ * source_{platform}: _ => signalData
+ */
+
+if (platform.indexOf('darwin') >= 0) {
   module.exports = source_osx;
+} if (platform.indexOf('linux') >= 0) {
+  module.exports = source_linux;
 } else {
-  throw 'platform not supported'
+  throw 'SITH Panicked! platform not supported'
 }
