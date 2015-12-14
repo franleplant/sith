@@ -16,7 +16,7 @@ let fmt = require('./formatters')
  * @param {Boolean} useSignal - use signal power instead of snr as a quality source
  * @param {Boolean} singleRun - run only once
  */
-function wssa() {
+function sith() {
   let source;
   if (process.platform.indexOf('darwin') >= 0) {
     //this only supports OS X
@@ -49,21 +49,32 @@ function wssa() {
       let qualityPer = fmt.getPercentage(data.quality)
       let qualityMarkers = fmt.getColor(qualityPer)(fmt.getMarkers(qualityPer))
 
+      let title = 'SITH: Wifi Signal Strength Analyzer'
+
+      function aniTitle(title, n) {
+        // TODO: when abstracting this, activity should be a clojure value for this func
+        //let f = title.slice(0,1)
+        let f = chalk.magenta(title.slice(0,n))
+        let t = chalk.magenta(title.slice(n))
+        f = activity ? chalk.inverse(f) : f;
+        return f + t;
+      }
+
       return `\
 
-  ${activity ? chalk.magenta('W') : chalk.inverse(chalk.magenta('W'))}${chalk.magenta('SSA: Wifi Signal Strength Analyzer')}
+  ${aniTitle(title, 4)}
 
-                   Signal ${signalMarkers} ${data.signal} dBm
-                  Quality ${qualityMarkers} ${data.quality} %
-                      SNR ${snrMarkers} ${data.snr} dBm
+                   Signal ${signalMarkers} ${data.signal || 'no data'} dBm
+                  Quality ${qualityMarkers} ${data.quality || 'no data'} %
+                      SNR ${snrMarkers} ${data.snr || 'no data'} dBm
 
   Detail
   ------
-     Quality[%]: ${data.quality}
-    Signal[dBm]: ${data.signal}
-     Noise[dBm]: ${data.noise}
-       SNR[dBm]: ${data.snr}
-      Rate[Mbs]: ${chalk.inverse(data.rate)}
+     Quality[%]: ${data.quality || 'no data'}
+    Signal[dBm]: ${data.signal || 'no data'}
+     Noise[dBm]: ${data.noise || 'no data'}
+       SNR[dBm]: ${data.snr || 'no data'}
+      Rate[Mbs]: ${chalk.inverse(data.rate || 'no data')}
 
 
 
@@ -88,5 +99,5 @@ function wssa() {
 }
 
 
-wssa()
-module.exports = wssa
+sith()
+module.exports = sith

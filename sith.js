@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 'use strict'
 
-let wssa = require('./index');
+let sith = require('./index');
 // TODO: enable command line flags and help strings
 
 
-wssa()
+sith()

@@ -1,9 +1,11 @@
 {
-  "name": "wssa",
+  "name": "sith-cli",
   "version": "0.0.1",
   "description": "Wifi Signal Strength Analyzer",
   "main": "index.js",
-  "bin": "wssa.js",
+  "bin": {
+    "sith": "sith.js"
+  },
   "scripts": {
     "test": "ava"
   },
