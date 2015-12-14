@@ -30,8 +30,7 @@ function template(data) {
 
   ${aniTitle(data.title, 4)}
 
-                   Signal ${data.signalMarkers} ${data.signal || 'no data'} dBm
-                  Quality ${data.qualityMarkers} ${data.quality || 'no data'} %
+                   Signal ${data.signalMarkers} ${data.signal || 'no data'} dBm | ${data.quality || 'no data'} %
                       SNR ${data.snrMarkers} ${data.snr || 'no data'} dBm
 
   Detail
