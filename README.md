@@ -15,10 +15,21 @@ Use it as a diagnostic tool for your network.
 
 ```sh
 # Install
-npm install -g sith-cli
+npm install -g sith
 
 # Run it!
 sith
+```
+
+
+Or use the API (TODO)
+
+```javascript
+
+import sith from 'sith';
+
+
+sith() // => {signal, noise, snr, rate, quality}
 ```
 
 
