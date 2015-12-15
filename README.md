@@ -1,4 +1,9 @@
-# SITH-CLI
+<h1 align="center">
+  <img width="300" src="https://rawgit.com/franleplant/sith-cli/master/sith_logo.png" alt="SITH">
+  </br>
+  </br>  
+  SITH-CLI
+</h1>
 
 > SITH is a Wifi Signal Strength Analyzer CLI app
 
