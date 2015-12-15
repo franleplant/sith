@@ -3,6 +3,7 @@
   "version": "0.0.3",
   "description": "Wifi Signal Strength Analyzer",
   "main": "index.js",
+  "repository": "franleplant/sith",
   "bin": {
     "sith": "cli.js"
   },
@@ -21,5 +22,11 @@
   },
   "devDependencies": {
     "ava": "0.7.0"
-  }
+  },
+  "keywords": [
+    "wifi",
+    "signal",
+    "strength",
+    "analyzer"
+  ]
 }
