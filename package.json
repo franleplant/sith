@@ -1,6 +1,6 @@
 {
   "name": "sith",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Wifi Signal Strength Analyzer",
   "main": "index.js",
   "repository": "franleplant/sith",
