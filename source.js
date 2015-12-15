@@ -22,7 +22,7 @@ let platform = process.platform
 
 if (platform.indexOf('darwin') >= 0) {
   module.exports = source_osx;
-} if (platform.indexOf('linux') >= 0) {
+} else if (platform.indexOf('linux') >= 0) {
   module.exports = source_linux;
 } else {
   throw 'SITH Panicked! platform not supported'
