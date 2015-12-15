@@ -22,7 +22,7 @@ sith
 ```
 
 
-Or use the API (TODO)
+Or use the API
 
 ```javascript
 
