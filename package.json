@@ -1,5 +1,5 @@
 {
-  "name": "sith-cli",
+  "name": "sith",
   "version": "0.0.2",
   "description": "Wifi Signal Strength Analyzer",
   "main": "index.js",
