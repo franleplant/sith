@@ -35,11 +35,13 @@ sith() // => {signal, noise, snr, rate, quality}
 ```
 
 
-## Known limitations
-Right now SITH will have an undefined behavior if more than one Wifi card
-is enabled/transmiting. Potentially this is something we are going to be fixing in the future.
+## Road Map
 
-SITH does not support Windows for now!
+- Support Windows
+- Support multiple active wifi devices in the same computer
+- Enable the user to select the device she wants to monitor
+- Improve docs
+- Release 1.0
 
 
 
