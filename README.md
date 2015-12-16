@@ -11,6 +11,8 @@ Wrap OS specific commands and provide a unified way of displaying Wifi Signal da
 
 Use it as a diagnostic tool for your network.
 
+  ![Screenshot](screenshot.png)
+
 ## Intro
 
 ```sh
