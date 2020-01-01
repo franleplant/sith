@@ -1,12 +1,12 @@
-'use strict';
-
-'use strict'
-
-let source_osx = require('./source_osx')
-let source_linux = require('./source_linux')
+const source_osx = require('./source/osx')
+const source_linux = require('./source/linux')
+const platform = process.platform
 
 
-let platform = process.platform
+//TODO
+//let each source return an object of sources per device
+// {deviceID: {data}}
+//Let each source throw errors if they fail and let index.js or cli.js panic correctly
 
 /**
  * @typedef signalData

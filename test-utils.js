@@ -2,7 +2,7 @@ import test from 'ava';
 import {
   getPercentage,
   getMarkers
-} from './formatters'
+} from './utils'
 
 test('getMarkers', t => {
     let res;

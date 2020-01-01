@@ -1,7 +1,7 @@
 <h1 align="center">
-  <img width="300" src="https://rawgit.com/franleplant/sith-cli/master/sith_logo.png" alt="SITH">
+  <img width="300" src="https://rawgit.com/franleplant/sith-cli/master/assets/sith_logo.png" alt="SITH">
   </br>
-  </br>  
+  </br>
   SITH
 </h1>
 
@@ -11,7 +11,7 @@ Wrap OS specific commands and provide a unified way of displaying Wifi Signal da
 
 Use it as a diagnostic tool for your network.
 
-  ![Screenshot](screenshot.png)
+  ![Screenshot](assets/screenshot.png)
 
 ## Intro
 

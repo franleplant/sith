@@ -1,7 +1,8 @@
-'use strict';
-let execSync = require('child_process').execSync
-let utils = require('./utils')
+const execSync = require('child_process').execSync
+const utils = require('../utils')
 
+
+const SOURCE_CMD = "/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I"
 
 function get_data_osx() {
   let res, signal, noise, rate;
@@ -9,7 +10,7 @@ function get_data_osx() {
   let quality = false;
 
   try {
-    res = execSync("/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I")
+    res = execSync(SOURCE_CMD)
   } catch (e) {
     throw `SITH panicked: ${e}`
   }
